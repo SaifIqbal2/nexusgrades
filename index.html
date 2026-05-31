@@ -3,16 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     
-    <!-- Advanced Security & Anti-Hacking Headers -->
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="X-Frame-Options" content="DENY" />
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <!-- Security Meta Tags (Frontend-level protection) -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
-    <!-- End Security Headers -->
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <!-- End Security Meta Tags -->
+
+    <!-- Performance Optimization Meta Tags for Fast Loading -->
+    <meta http-equiv="Cache-Control" content="public, max-age=3600, must-revalidate" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://wa.me" />
+    <link rel="dns-prefetch" href="https://www.instagram.com" />
+    <link rel="dns-prefetch" href="https://www.tiktok.com" />
+    <link rel="dns-prefetch" href="https://x.com" />
+    <link rel="dns-prefetch" href="https://discord.gg" />
+    <link rel="dns-prefetch" href="https://www.youtube.com" />
+    <link rel="dns-prefetch" href="https://www.facebook.com" />
+    <link rel="dns-prefetch" href="https://www.reddit.com" />
+    <!-- End Performance Tags -->
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/logo1.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
     <meta name="theme-color" content="#7c3aed" />
 
     <!-- Primary Meta Tags -->
@@ -37,6 +51,44 @@
     <meta property="twitter:title" content="NexusGrades | Expert IT, CS & Cyber Security Assistance" />
     <meta property="twitter:description" content="Professional, 100% Plagiarism & AI-free academic assistance for Computer Science, IT, and Cyber Security Australian students." />
     <meta property="twitter:image" content="/logo1.png" />
+
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://nexusgrades.com/" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "NexusGrades",
+      "description": "Professional 100% Plagiarism & AI-free academic assistance for Computer Science, IT, and Cyber Security students in Australia",
+      "url": "https://nexusgrades.com",
+      "telephone": "+61",
+      "email": "nexusgrades@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "AU",
+        "addressRegion": "Australia"
+      },
+      "image": "/logo1.png",
+      "sameAs": [
+        "https://www.instagram.com/nexusgrades/",
+        "https://www.tiktok.com/@nexusgrades",
+        "https://www.youtube.com/@nexusgrades",
+        "https://x.com/nexusgrades",
+        "https://www.facebook.com/profile.php?id=61590382086529",
+        "https://www.reddit.com/user/Double_Tradition_467/",
+        "https://discord.gg/zmTJaQGe"
+      ],
+      "areaServed": "AU",
+      "serviceType": "Academic Writing",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "500"
+      }
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

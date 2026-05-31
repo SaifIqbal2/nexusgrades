@@ -16,15 +16,15 @@ export default function Contact() {
           <div className="bg-gradient-to-br from-violet-600 to-indigo-800 text-white p-10 md:w-1/3 flex flex-col justify-between relative overflow-hidden">
             <div className="absolute top-0 right-0 -mr-10 -mt-10 w-40 h-40 bg-fuchsia-500/20 rounded-full blur-2xl font-light"></div>
             <div className="relative z-10">
-              <h3 className="text-3xl font-bold mb-8">Contact Info</h3>
+              <h2 className="text-3xl font-bold mb-8">Contact Info</h2>
               <div className="space-y-8">
                 <div className="flex items-start gap-4">
                   <div className="bg-white/10 p-3 rounded-2xl">
                     <MessageCircle className="w-6 h-6 text-fuchsia-300" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-semibold">WhatsApp (Fastest)</h4>
-                    <a href="https://wa.me/923393301238" target="_blank" rel="noreferrer" className="text-indigo-100 hover:text-white mt-1 block transition-colors">
+                    <h3 className="text-lg font-semibold">WhatsApp (Fastest)</h3>
+                    <a href="https://wa.me/923393301238" target="_blank" rel="noreferrer" className="text-indigo-100 hover:text-white mt-1 block transition-colors" aria-label="Contact us on WhatsApp">
                       +92 339 330 1238
                     </a>
                   </div>
@@ -34,8 +34,8 @@ export default function Contact() {
                     <Mail className="w-6 h-6 text-fuchsia-300" />
                   </div>
                   <div>
-                    <h4 className="text-lg font-semibold">Email Us</h4>
-                    <a href="mailto:nexusgrades@gmail.com" className="text-indigo-100 hover:text-white mt-1 block transition-colors">
+                    <h3 className="text-lg font-semibold">Email Us</h3>
+                    <a href="mailto:nexusgrades@gmail.com" className="text-indigo-100 hover:text-white mt-1 block transition-colors" aria-label="Email NexusGrades">
                       nexusgrades@gmail.com
                     </a>
                   </div>
@@ -50,23 +50,43 @@ export default function Contact() {
 
           {/* Right Panel / Form */}
           <div className="p-10 md:w-2/3">
-            <h3 className="text-2xl font-bold text-slate-900 mb-8">Send us your task details</h3>
-            <form className="space-y-6">
+            <h2 className="text-2xl font-bold text-slate-900 mb-8">Send us your task details</h2>
+            <form className="space-y-6" role="form" aria-labelledby="form-title">
+              <div id="form-title" className="sr-only">Contact form for submitting academic tasks</div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-2">First Name</label>
-                  <input type="text" className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-violet-600/20 focus:border-violet-600 outline-none transition bg-slate-50" placeholder="John" />
+                  <label htmlFor="firstName" className="block text-sm font-semibold text-slate-700 mb-2">First Name</label>
+                  <input 
+                    id="firstName"
+                    type="text" 
+                    className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-violet-600/20 focus:border-violet-600 outline-none transition bg-slate-50" 
+                    placeholder="John"
+                    required
+                    aria-required="true"
+                  />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
-                  <input type="email" className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-violet-600/20 focus:border-violet-600 outline-none transition bg-slate-50" placeholder="john@student.edu.au" />
+                  <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
+                  <input 
+                    id="email"
+                    type="email" 
+                    className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-violet-600/20 focus:border-violet-600 outline-none transition bg-slate-50" 
+                    placeholder="john@student.edu.au"
+                    required
+                    aria-required="true"
+                  />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-2">Subject / Domain</label>
-                  <select className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-violet-600/20 focus:border-violet-600 outline-none transition bg-slate-50">
+                  <label htmlFor="subject" className="block text-sm font-semibold text-slate-700 mb-2">Subject / Domain</label>
+                  <select 
+                    id="subject"
+                    className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-violet-600/20 focus:border-violet-600 outline-none transition bg-slate-50"
+                    required
+                    aria-required="true"
+                  >
                     <option>Computer Science</option>
                     <option>Information Technology</option>
                     <option>Software Engineering</option>
@@ -75,18 +95,35 @@ export default function Contact() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-2">Deadline</label>
-                  <input type="date" className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-violet-600/20 focus:border-violet-600 outline-none transition bg-slate-50" />
+                  <label htmlFor="deadline" className="block text-sm font-semibold text-slate-700 mb-2">Deadline</label>
+                  <input 
+                    id="deadline"
+                    type="date" 
+                    className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-violet-600/20 focus:border-violet-600 outline-none transition bg-slate-50"
+                    required
+                    aria-required="true"
+                  />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-2">Task Description</label>
-                <textarea rows="4" className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-violet-600/20 focus:border-violet-600 outline-none transition resize-none bg-slate-50" placeholder="Provide details about your assignment, or paste a drive link..."></textarea>
+                <label htmlFor="taskDescription" className="block text-sm font-semibold text-slate-700 mb-2">Task Description</label>
+                <textarea 
+                  id="taskDescription"
+                  rows="4" 
+                  className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-violet-600/20 focus:border-violet-600 outline-none transition resize-none bg-slate-50" 
+                  placeholder="Provide details about your assignment, or paste a drive link..."
+                  required
+                  aria-required="true"
+                ></textarea>
               </div>
 
               <div className="pt-4">
-                <button type="button" className="w-full bg-violet-600 text-white font-bold py-4 rounded-xl hover:bg-violet-700 hover:-translate-y-1 transition-all duration-300 shadow-xl shadow-violet-200">
+                <button 
+                  type="submit" 
+                  className="w-full bg-violet-600 text-white font-bold py-4 rounded-xl hover:bg-violet-700 hover:-translate-y-1 transition-all duration-300 shadow-xl shadow-violet-200 focus:outline-none focus:ring-4 focus:ring-violet-400/50"
+                  aria-label="Submit contact request for quote"
+                >
                   Submit Request for Quote ✨
                 </button>
                 <div className="mt-4 text-center">

@@ -1,0 +1,49 @@
+# Robots.txt for NexusGrades - SEO & Performance Optimized
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+Allow: /services
+Allow: /about
+Allow: /contact
+Allow: /sitemap.xml
+Allow: /robots.txt
+
+# Block suspicious crawlers to save bandwidth
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+# Disallow private/admin pages
+Disallow: /admin
+Disallow: /private
+Disallow: /api
+Disallow: /.env
+Disallow: /.git
+Disallow: /node_modules
+
+# Disallow dynamic pages that slow loading
+Disallow: /*?*
+Disallow: /*utm_
+
+# Sitemaps for Google & Bing
+Sitemap: https://nexusgrades.com/sitemap.xml
+
+# Crawl delay for efficient indexing (faster, less server load)
+Crawl-delay: 0.5
+Request-rate: 60/1s
+
+# Specific rules for Google (highest priority)
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Specific rules for Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0.5

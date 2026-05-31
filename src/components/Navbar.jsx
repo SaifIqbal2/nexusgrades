@@ -8,10 +8,10 @@ export default function Navbar() {
   const isActive = (path) => location.pathname === path ? "text-violet-600 font-bold" : "text-slate-600 hover:text-violet-600";
 
   return (
-    <nav className="bg-white/80 backdrop-blur-md shadow-sm border-b border-slate-100 sticky top-0 z-50 transition-all">
+    <nav className="bg-white/80 backdrop-blur-md shadow-sm border-b border-slate-100 sticky top-0 z-50 transition-all" role="navigation" aria-label="Main navigation">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3 z-50">
-          <img src="/logo1.png" alt="NexusGrades Logo" className="w-10 h-10 md:w-12 md:h-12 object-contain" />
+        <Link to="/" className="flex items-center gap-3 z-50" aria-label="NexusGrades home">
+          <img src="/logo1.png" alt="NexusGrades logo" width="48" height="48" className="w-10 h-10 md:w-12 md:h-12 object-contain" />
           <span className="text-xl md:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-violet-700 to-fuchsia-600 text-transparent bg-clip-text">
             NexusGrades
           </span>
@@ -34,6 +34,9 @@ export default function Navbar() {
         <button 
           className="md:hidden p-2 text-slate-600 hover:text-violet-600 focus:outline-none z-50"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-nav"
         >
           {isMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
         </button>
@@ -41,7 +44,7 @@ export default function Navbar() {
 
       {/* Mobile Nav Overlay */}
       {isMenuOpen && (
-        <div className="md:hidden absolute top-20 left-0 w-full bg-white border-b border-slate-100 shadow-xl flex flex-col items-center py-6 space-y-6 z-40 animate-fade-in-up">
+        <div id="mobile-nav" className="md:hidden absolute top-20 left-0 w-full bg-white border-b border-slate-100 shadow-xl flex flex-col items-center py-6 space-y-6 z-40 animate-fade-in-up" role="navigation" aria-label="Mobile navigation">
           <Link to="/" onClick={() => setIsMenuOpen(false)} className={`text-xl ${isActive('/')}`}>Home</Link>
           <Link to="/services" onClick={() => setIsMenuOpen(false)} className={`text-xl ${isActive('/services')}`}>Services</Link>
           <Link to="/about" onClick={() => setIsMenuOpen(false)} className={`text-xl ${isActive('/about')}`}>About Us</Link>

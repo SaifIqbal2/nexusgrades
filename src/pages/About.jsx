@@ -35,18 +35,18 @@ export default function About() {
               <div className="absolute top-0 right-0 -mr-4 -mt-4 bg-blue-100 p-4 rounded-full">
                 <Users className="w-8 h-8 text-blue-700" />
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-6">Our Core Values</h3>
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">Our Core Values</h2>
               <div className="space-y-6">
                 <div>
-                  <h4 className="text-lg font-bold text-slate-800">1. Quality First</h4>
+                  <h3 className="text-lg font-bold text-slate-800">1. Quality First</h3>
                   <p className="text-slate-600 mt-1">We write elegant, scalable code and thorough documentation.</p>
                 </div>
                 <div>
-                  <h4 className="text-lg font-bold text-slate-800">2. Empathy</h4>
+                  <h3 className="text-lg font-bold text-slate-800">2. Empathy</h3>
                   <p className="text-slate-600 mt-1">We understand student stress and tight budgets. We aim to be supportive, responsive, and fair.</p>
                 </div>
                 <div>
-                  <h4 className="text-lg font-bold text-slate-800">3. Integrity</h4>
+                  <h3 className="text-lg font-bold text-slate-800">3. Integrity</h3>
                   <p className="text-slate-600 mt-1">Providing unique custom solutions while guiding students to actually understand the concepts.</p>
                 </div>
               </div>

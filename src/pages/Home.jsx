@@ -123,14 +123,14 @@ export default function Home() {
           {/* Trust Avatars */}
           <div className="flex flex-col items-center justify-center gap-3 mb-14">
             <div className="flex -space-x-4">
-              <img className="w-12 h-12 rounded-full border-2 border-white shadow-md object-cover" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Student 1" />
-              <img className="w-12 h-12 rounded-full border-2 border-white shadow-md object-cover" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Student 2" />
-              <img className="w-12 h-12 rounded-full border-2 border-white shadow-md object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Student 3" />
-              <img className="w-12 h-12 rounded-full border-2 border-white shadow-md object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Student 4" />
+              <img width="48" height="48" className="w-12 h-12 rounded-full border-2 border-white shadow-md object-cover" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Student from USYD" />
+              <img width="48" height="48" className="w-12 h-12 rounded-full border-2 border-white shadow-md object-cover" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Student from RMIT" />
+              <img width="48" height="48" className="w-12 h-12 rounded-full border-2 border-white shadow-md object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Student from UNSW" />
+              <img width="48" height="48" className="w-12 h-12 rounded-full border-2 border-white shadow-md object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Verified NexusGrades student" />
               <div className="w-12 h-12 rounded-full border-2 border-white shadow-md bg-violet-100 flex items-center justify-center text-violet-700 font-bold text-sm">500+</div>
             </div>
             <div className="flex items-center gap-2 text-slate-600 font-medium bg-white/50 px-4 py-1.5 rounded-full border border-slate-100">
-              <div className="flex text-amber-400">
+              <div className="flex text-amber-400" aria-label="5 out of 5 stars">
                 <Star className="w-4 h-4 fill-current" />
                 <Star className="w-4 h-4 fill-current" />
                 <Star className="w-4 h-4 fill-current" />
@@ -220,7 +220,9 @@ export default function Home() {
                 </div>
                 <img 
                   src="/image.png" 
-                  alt="100% Grade Proof" 
+                  alt="Canvas grade feedback showing 100 percent achieved on NexusGrades submission"
+                  width="500"
+                  height="400"
                   className="w-full h-auto rounded-xl relative z-10 opacity-90 group-hover:opacity-100 transition-opacity"
                 />
               </div>

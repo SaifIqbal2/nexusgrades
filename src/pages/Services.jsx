@@ -19,6 +19,7 @@ export default function Services() {
         </div>
 
         {/* Service Types */}
+        <h2 className="text-3xl font-bold text-center text-slate-900 mb-10">What We Offer</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
           <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200">
             <FileText className="w-10 h-10 text-blue-600 mb-4" />
@@ -41,7 +42,7 @@ export default function Services() {
                 <div className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${cat.color}`}>
                   <cat.icon className="w-6 h-6" />
                 </div>
-                <h4 className="text-xl font-bold text-slate-900 mb-4">{cat.title}</h4>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">{cat.title}</h3>
                 <ul className="space-y-2">
                   {cat.items.map((item, i) => (
                     <li key={i} className="text-slate-600 text-sm flex items-center gap-2">
