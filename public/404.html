@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Page Not Found — Redirecting...</title>
+    <meta name="robots" content="noindex">
+    <script>
+      // Try to recover single-page-app route by loading index.html content
+      (function(){
+        try{
+          fetch('/index.html').then(function(r){ return r.text(); }).then(function(html){
+            document.open(); document.write(html); document.close();
+            // keep the requested URL in the address bar
+            history.replaceState({}, '', location.pathname + location.search);
+          }).catch(function(){
+            // fallback: redirect to root
+            location.replace('/');
+          });
+        }catch(e){
+          location.replace('/');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    Redirecting...
+  </body>
+</html>

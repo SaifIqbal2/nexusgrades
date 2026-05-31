@@ -44,12 +44,12 @@ export default function Navbar() {
 
       {/* Mobile Nav Overlay */}
       {isMenuOpen && (
-        <div id="mobile-nav" className="md:hidden absolute top-20 left-0 w-full bg-white border-b border-slate-100 shadow-xl flex flex-col items-center py-6 space-y-6 z-40 animate-fade-in-up" role="navigation" aria-label="Mobile navigation">
-          <Link to="/" onClick={() => setIsMenuOpen(false)} className={`text-xl ${isActive('/')}`}>Home</Link>
-          <Link to="/services" onClick={() => setIsMenuOpen(false)} className={`text-xl ${isActive('/services')}`}>Services</Link>
-          <Link to="/about" onClick={() => setIsMenuOpen(false)} className={`text-xl ${isActive('/about')}`}>About Us</Link>
-          <Link to="/contact" onClick={() => setIsMenuOpen(false)} className={`text-xl ${isActive('/contact')}`}>Contact</Link>
-          <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="mt-4 bg-violet-600 text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-violet-200">
+        <div id="mobile-nav" className="md:hidden absolute top-20 left-0 w-full bg-white border-b border-slate-100 shadow-xl flex flex-col items-center py-6 space-y-4 z-40 animate-fade-in-up" role="navigation" aria-label="Mobile navigation">
+          <Link to="/" onClick={() => setIsMenuOpen(false)} className={`w-full text-center px-6 py-3 text-xl ${isActive('/')}`}>Home</Link>
+          <Link to="/services" onClick={() => setIsMenuOpen(false)} className={`w-full text-center px-6 py-3 text-xl ${isActive('/services')}`}>Services</Link>
+          <Link to="/about" onClick={() => setIsMenuOpen(false)} className={`w-full text-center px-6 py-3 text-xl ${isActive('/about')}`}>About Us</Link>
+          <Link to="/contact" onClick={() => setIsMenuOpen(false)} className={`w-full text-center px-6 py-3 text-xl ${isActive('/contact')}`}>Contact</Link>
+          <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="w-full mt-2 bg-violet-600 text-white px-6 py-3 rounded-full font-bold shadow-lg shadow-violet-200 text-center">
             Get Free Quote ✨
           </Link>
         </div>

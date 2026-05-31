@@ -60,11 +60,11 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-indigo-900/50 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-16 pt-8 border-t border-indigo-900/50 flex flex-col md:flex-row items-center justify-center md:justify-between gap-6 px-4 sm:px-6 text-center md:text-left">
           <div className="text-indigo-300/60 text-sm">
             © {new Date().getFullYear()} NexusGrades. Stay ahead of the curve.
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <span className="text-xs bg-indigo-900 text-fuchsia-300 font-medium px-4 py-2 rounded-full border border-indigo-800">100% Confidential 🔒</span>
             <span className="text-xs bg-indigo-900 text-emerald-300 font-medium px-4 py-2 rounded-full border border-indigo-800">No AI Guarantee ✨</span>
           </div>

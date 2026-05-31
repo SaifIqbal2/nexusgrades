@@ -93,10 +93,10 @@ export default function Home() {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 mb-8 w-full justify-center px-4">
-            <Link to="/contact" className="bg-violet-600 text-white px-6 md:px-8 py-4 rounded-full font-bold text-base md:text-lg hover:bg-violet-700 hover:-translate-y-1 transition-all duration-300 shadow-xl shadow-violet-200 flex items-center justify-center gap-2 group">
+            <Link to="/contact" className="w-full sm:w-auto bg-violet-600 text-white px-6 md:px-8 py-4 rounded-full font-bold text-base md:text-lg hover:bg-violet-700 hover:-translate-y-1 transition-all duration-300 shadow-xl shadow-violet-200 flex items-center justify-center gap-2 group">
               Get an Instant Quote <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform"/>
             </Link>
-            <Link to="/services" className="bg-white/80 backdrop-blur-sm text-slate-700 border-2 border-slate-200 px-6 md:px-8 py-4 rounded-full font-bold text-base md:text-lg hover:border-violet-300 hover:-translate-y-1 transition-all duration-300 shadow-sm flex items-center justify-center">
+            <Link to="/services" className="w-full sm:w-auto bg-white/80 backdrop-blur-sm text-slate-700 border-2 border-slate-200 px-6 md:px-8 py-4 rounded-full font-bold text-base md:text-lg hover:border-violet-300 hover:-translate-y-1 transition-all duration-300 shadow-sm flex items-center justify-center">
               Explore Services
             </Link>
           </div>
