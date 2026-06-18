@@ -35,6 +35,10 @@ export default function About() {
               <div className="absolute top-0 right-0 -mr-4 -mt-4 bg-blue-100 p-4 rounded-full">
                 <Users className="w-8 h-8 text-blue-700" />
               </div>
+              <div className="mb-6">
+                <h4 className="text-sm font-semibold text-slate-700 mb-2">Read our latest posts</h4>
+                <a href="/blog" className="text-violet-600 font-medium hover:underline">Visit the Blog</a>
+              </div>
               <h2 className="text-2xl font-bold text-slate-900 mb-6">Our Core Values</h2>
               <div className="space-y-6">
                 <div>

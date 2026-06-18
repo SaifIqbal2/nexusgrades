@@ -1,11 +1,36 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { supabase } from '../lib/supabaseClient';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const isActive = (path) => location.pathname === path ? "text-violet-600 font-bold" : "text-slate-600 hover:text-violet-600";
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      setUser(data?.user || null);
+    };
+    
+    checkUser();
+    
+    const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user || null);
+    });
+    
+    return () => sub?.subscription?.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    setIsMenuOpen(false);
+    navigate('/');
+  };
 
   return (
     <nav className="bg-white/80 backdrop-blur-md shadow-sm border-b border-slate-100 sticky top-0 z-50 transition-all" role="navigation" aria-label="Main navigation">
@@ -22,13 +47,24 @@ export default function Navbar() {
           <Link to="/" className={`transition ${isActive('/')}`}>Home</Link>
           <Link to="/services" className={`transition ${isActive('/services')}`}>Services</Link>
           <Link to="/about" className={`transition ${isActive('/about')}`}>About Us</Link>
+          <Link to="/blog" className={`transition ${isActive('/blog')}`}>Blog</Link>
           <Link to="/contact" className={`transition ${isActive('/contact')}`}>Contact</Link>
         </div>
         
-        {/* Desktop CTA */}
-        <Link to="/contact" className="bg-slate-900 text-white px-6 py-2.5 rounded-full font-medium hover:bg-violet-600 hover:shadow-lg hover:shadow-violet-200 transition-all hidden md:block z-50">
-          Get Free Quote ✨
-        </Link>
+        {/* Desktop Login + CTA */}
+        <div className="hidden md:flex items-center gap-4">
+          {user ? (
+            <>
+              <span className="text-sm text-slate-600">{user.email}</span>
+              <button onClick={handleLogout} className="text-slate-700 hover:text-violet-600 font-medium px-4 py-2 rounded-full border border-transparent hover:border-violet-100 transition" aria-label="Sign out">Logout</button>
+            </>
+          ) : (
+            <Link to="/auth" className="text-slate-700 hover:text-violet-600 font-medium px-4 py-2 rounded-full border border-transparent hover:border-violet-100 transition" aria-label="Sign in">Login</Link>
+          )}
+          <Link to="/contact" className="bg-slate-900 text-white px-6 py-2.5 rounded-full font-medium hover:bg-violet-600 hover:shadow-lg hover:shadow-violet-200 transition-all hidden md:inline-flex z-50">
+            Get Free Quote ✨
+          </Link>
+        </div>
 
         {/* Mobile Menu Button */}
         <button 
@@ -48,7 +84,16 @@ export default function Navbar() {
           <Link to="/" onClick={() => setIsMenuOpen(false)} className={`w-full text-center px-6 py-3 text-xl ${isActive('/')}`}>Home</Link>
           <Link to="/services" onClick={() => setIsMenuOpen(false)} className={`w-full text-center px-6 py-3 text-xl ${isActive('/services')}`}>Services</Link>
           <Link to="/about" onClick={() => setIsMenuOpen(false)} className={`w-full text-center px-6 py-3 text-xl ${isActive('/about')}`}>About Us</Link>
+          <Link to="/blog" onClick={() => setIsMenuOpen(false)} className={`w-full text-center px-6 py-3 text-xl ${isActive('/blog')}`}>Blog</Link>
           <Link to="/contact" onClick={() => setIsMenuOpen(false)} className={`w-full text-center px-6 py-3 text-xl ${isActive('/contact')}`}>Contact</Link>
+          {user ? (
+            <>
+              <div className="w-full text-center px-6 py-3 text-sm text-slate-600">{user.email}</div>
+              <button onClick={handleLogout} className={`w-full text-center px-6 py-3 text-xl ${isActive('/auth')}`}>Logout</button>
+            </>
+          ) : (
+            <Link to="/auth" onClick={() => setIsMenuOpen(false)} className={`w-full text-center px-6 py-3 text-xl ${isActive('/auth')}`}>Login</Link>
+          )}
           <Link to="/contact" onClick={() => setIsMenuOpen(false)} className="w-full mt-2 bg-violet-600 text-white px-6 py-3 rounded-full font-bold shadow-lg shadow-violet-200 text-center">
             Get Free Quote ✨
           </Link>

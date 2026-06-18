@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <div className="bg-white selection:bg-violet-200 selection:text-violet-900">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-violet-50 via-white to-fuchsia-50 py-20 lg:py-28 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-violet-50 via-white to-fuchsia-50 py-20 lg:py-28 overflow-visible lg:overflow-hidden">
         {/* Abstract background blobs for Gen Z vibe */}
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-violet-200/50 blur-3xl opacity-50"></div>
         <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-fuchsia-200/50 blur-3xl opacity-50"></div>
@@ -99,6 +99,28 @@ export default function Home() {
             <Link to="/services" className="w-full sm:w-auto bg-white/80 backdrop-blur-sm text-slate-700 border-2 border-slate-200 px-6 md:px-8 py-4 rounded-full font-bold text-base md:text-lg hover:border-violet-300 hover:-translate-y-1 transition-all duration-300 shadow-sm flex items-center justify-center">
               Explore Services
             </Link>
+          </div>
+
+          {/* Mobile simplified badges (visible only on small screens) */}
+          <div className="lg:hidden flex flex-col items-center gap-4 w-full max-w-md mx-auto mt-4 px-4">
+            <div className="w-full bg-white/90 backdrop-blur-md p-3 rounded-2xl shadow-md border border-white/60 flex items-center gap-3">
+              <div className="bg-emerald-100 p-2 rounded-full">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-slate-800">Python Task Done</p>
+                <p className="text-xs text-slate-500">Just now from RMIT</p>
+              </div>
+            </div>
+            <div className="w-full bg-white/90 backdrop-blur-md p-3 rounded-2xl shadow-md border border-white/60 flex items-center gap-3">
+              <div className="bg-fuchsia-100 p-2 rounded-full">
+                <ShieldCheck className="w-5 h-5 text-fuchsia-600" />
+              </div>
+              <div className="text-left">
+                <p className="font-semibold text-slate-800">Turnitin Safe</p>
+                <p className="text-xs text-slate-500">Zero AI Detected</p>
+              </div>
+            </div>
           </div>
 
           {/* Tech Stack Pills - Above the fold to quickly show what we do */}

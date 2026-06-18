@@ -1,7 +1,9 @@
 import React from 'react';
 import { Mail, MessageCircle } from 'lucide-react';
+import { useForm, ValidationError } from '@formspree/react';
 
 export default function Contact() {
+  const [state, handleSubmit] = useForm('xjgzqvra');
   return (
     <div className="bg-slate-50 py-24 selection:bg-violet-200 selection:text-violet-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,30 +53,34 @@ export default function Contact() {
           {/* Right Panel / Form */}
           <div className="p-10 md:w-2/3">
             <h2 className="text-2xl font-bold text-slate-900 mb-8">Send us your task details</h2>
-            <form className="space-y-6" role="form" aria-labelledby="form-title">
+            <form onSubmit={handleSubmit} className="space-y-6" role="form" aria-labelledby="form-title">
               <div id="form-title" className="sr-only">Contact form for submitting academic tasks</div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="firstName" className="block text-sm font-semibold text-slate-700 mb-2">First Name</label>
                   <input 
                     id="firstName"
+                    name="firstName"
                     type="text" 
                     className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-violet-600/20 focus:border-violet-600 outline-none transition bg-slate-50" 
                     placeholder="John"
                     required
                     aria-required="true"
                   />
+                  <ValidationError prefix="First Name" field="firstName" errors={state.errors} />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
                   <input 
                     id="email"
+                    name="email"
                     type="email" 
                     className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-violet-600/20 focus:border-violet-600 outline-none transition bg-slate-50" 
                     placeholder="john@student.edu.au"
                     required
                     aria-required="true"
                   />
+                  <ValidationError prefix="Email" field="email" errors={state.errors} />
                 </div>
               </div>
 
@@ -83,6 +89,7 @@ export default function Contact() {
                   <label htmlFor="subject" className="block text-sm font-semibold text-slate-700 mb-2">Subject / Domain</label>
                   <select 
                     id="subject"
+                    name="subject"
                     className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-violet-600/20 focus:border-violet-600 outline-none transition bg-slate-50"
                     required
                     aria-required="true"
@@ -98,6 +105,7 @@ export default function Contact() {
                   <label htmlFor="deadline" className="block text-sm font-semibold text-slate-700 mb-2">Deadline</label>
                   <input 
                     id="deadline"
+                    name="deadline"
                     type="date" 
                     className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-violet-600/20 focus:border-violet-600 outline-none transition bg-slate-50"
                     required
@@ -110,22 +118,29 @@ export default function Contact() {
                 <label htmlFor="taskDescription" className="block text-sm font-semibold text-slate-700 mb-2">Task Description</label>
                 <textarea 
                   id="taskDescription"
+                  name="message"
                   rows="4" 
                   className="w-full px-5 py-4 rounded-xl border border-slate-200 focus:ring-4 focus:ring-violet-600/20 focus:border-violet-600 outline-none transition resize-none bg-slate-50" 
                   placeholder="Provide details about your assignment, or paste a drive link..."
                   required
                   aria-required="true"
                 ></textarea>
+                <ValidationError prefix="Task Description" field="message" errors={state.errors} />
               </div>
 
               <div className="pt-4">
-                <button 
-                  type="submit" 
-                  className="w-full bg-violet-600 text-white font-bold py-4 rounded-xl hover:bg-violet-700 hover:-translate-y-1 transition-all duration-300 shadow-xl shadow-violet-200 focus:outline-none focus:ring-4 focus:ring-violet-400/50"
-                  aria-label="Submit contact request for quote"
-                >
-                  Submit Request for Quote ✨
-                </button>
+                {state.succeeded ? (
+                  <div className="w-full bg-emerald-100 text-emerald-800 px-6 py-4 rounded-xl text-center font-semibold">Thanks — your request was sent.</div>
+                ) : (
+                  <button 
+                    type="submit" 
+                    disabled={state.submitting}
+                    className="w-full bg-violet-600 text-white font-bold py-4 rounded-xl hover:bg-violet-700 hover:-translate-y-1 transition-all duration-300 shadow-xl shadow-violet-200 focus:outline-none focus:ring-4 focus:ring-violet-400/50 disabled:opacity-60"
+                    aria-label="Submit contact request for quote"
+                  >
+                    {state.submitting ? 'Sending...' : 'Submit Request for Quote ✨'}
+                  </button>
+                )}
                 <div className="mt-4 text-center">
                    <p className="text-slate-500 font-medium uppercase text-sm">OR</p>
                 </div>
