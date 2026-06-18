@@ -1,12 +1,37 @@
 import React, { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabaseClient'
 
+const CATEGORY_OPTIONS = [
+  'Cybersecurity',
+  'Study Tips',
+  'Academic Writing',
+  'IT & Networking',
+  'Programming',
+]
+
+function slugify(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+}
+
 export default function BlogEditor({ post, onSaved, onCancel }) {
   const [title, setTitle] = useState(post?.title || '')
+  const [slug, setSlug] = useState(post?.slug || '')
+  const [excerpt, setExcerpt] = useState(post?.excerpt || '')
   const [content, setContent] = useState(post?.content || '')
+  const [category, setCategory] = useState(post?.category || CATEGORY_OPTIONS[0])
+  const [tags, setTags] = useState((post?.tags && post.tags.join(', ')) || '')
+  const [status, setStatus] = useState(post?.status === 'published')
   const [imageFile, setImageFile] = useState(null)
+  const [imagePreview, setImagePreview] = useState(post?.image_url || null)
   const [loading, setLoading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
+  const [readTime, setReadTime] = useState(post?.read_time || 1)
 
   const compressImage = async (file) => {
     return new Promise((resolve) => {
@@ -45,6 +70,7 @@ export default function BlogEditor({ post, onSaved, onCancel }) {
       setUploadProgress(10)
       const compressed = await compressImage(file)
       setImageFile(compressed)
+      setImagePreview(URL.createObjectURL(compressed))
       setUploadProgress(0)
     }
   }
@@ -90,7 +116,19 @@ export default function BlogEditor({ post, onSaved, onCancel }) {
 
       setUploadProgress(80)
       // Prepare data
-      let dataToSave = { title, content }
+      const read_time_calc = Math.max(1, Math.ceil((content || '').split(/\s+/).filter(Boolean).length / 200))
+      setReadTime(read_time_calc)
+
+      let dataToSave = {
+        title,
+        slug: slug || slugify(title),
+        excerpt,
+        content,
+        category,
+        tags: tags.split(',').map((t) => t.trim()).filter(Boolean),
+        read_time: read_time_calc,
+        status: status ? 'published' : 'draft',
+      }
       if (imageUrl) {
         dataToSave.image_url = imageUrl
       }
@@ -120,29 +158,82 @@ export default function BlogEditor({ post, onSaved, onCancel }) {
   }
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
-      <label className="block text-sm font-medium mb-1">Title</label>
-      <input value={title} onChange={(e) => setTitle(e.target.value)} className="w-full px-3 py-2 border rounded mb-3" placeholder="Post title" disabled={loading} />
-      
-      <label className="block text-sm font-medium mb-1">Content</label>
-      <textarea value={content} onChange={(e) => setContent(e.target.value)} rows={8} className="w-full px-3 py-2 border rounded mb-3" placeholder="Post content" disabled={loading} />
-      
-      <label className="block text-sm font-medium mb-1">Image</label>
-      <input type="file" accept="image/*" onChange={handleImageChange} className="w-full px-3 py-2 border rounded mb-3" disabled={loading} />
-      {imageFile && <p className="text-sm text-slate-600 mb-3">✓ Image selected: {imageFile.name}</p>}
-      
-      {uploadProgress > 0 && uploadProgress < 100 && (
-        <div className="mb-3">
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div className="bg-violet-600 h-2 rounded-full transition-all" style={{ width: `${uploadProgress}%` }}></div>
-          </div>
-          <p className="text-xs text-slate-600 mt-1">{uploadProgress}% uploading...</p>
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="md:col-span-2">
+          <label className="block text-sm font-semibold mb-1 text-gray-700">Title</label>
+          <input
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value)
+              setSlug(slugify(e.target.value))
+            }}
+            className="w-full px-3 py-2 border rounded mb-3 focus:outline-none focus:ring-2 focus:ring-[#7C3AED]"
+            placeholder="Post title"
+            disabled={loading}
+          />
+
+          <label className="block text-sm font-semibold mb-1 text-gray-700">Slug</label>
+          <input value={slug} onChange={(e) => setSlug(e.target.value)} className="w-full px-3 py-2 border rounded mb-3" placeholder="auto-generated slug" disabled={loading} />
+
+          <label className="block text-sm font-semibold mb-1 text-gray-700">Excerpt</label>
+          <textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value.slice(0,150))} rows={3} className="w-full px-3 py-2 border rounded mb-1" placeholder="Short description (max 150 chars)" disabled={loading} />
+          <div className="text-xs text-gray-500 mb-3">{excerpt.length}/150</div>
+
+          <label className="block text-sm font-semibold mb-1 text-gray-700">Content</label>
+          <textarea value={content} onChange={(e) => setContent(e.target.value)} rows={12} className="w-full px-3 py-3 border rounded mb-3 focus:outline-none focus:ring-2 focus:ring-[#7C3AED]" placeholder="Post content (supports basic formatting)" disabled={loading} />
         </div>
-      )}
-      
-      <div className="flex gap-2">
-        <button onClick={handleSave} disabled={loading} className="bg-violet-600 text-white px-4 py-2 rounded disabled:opacity-50">{loading ? 'Saving...' : 'Save'}</button>
-        <button onClick={onCancel} disabled={loading} className="px-4 py-2 border rounded disabled:opacity-50">Cancel</button>
+
+        <div className="md:col-span-1">
+          <div className="mb-4">
+            <label className="block text-sm font-semibold mb-1 text-gray-700">Featured Image</label>
+            <input type="file" accept="image/*" onChange={handleImageChange} className="w-full mb-2" disabled={loading} />
+            {imagePreview && (
+              <img src={imagePreview} alt="preview" className="w-full h-40 object-cover rounded border" />
+            )}
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-semibold mb-1 text-gray-700">Category</label>
+            <select value={category} onChange={(e) => setCategory(e.target.value)} className="w-full px-3 py-2 border rounded mb-2" disabled={loading}>
+              {CATEGORY_OPTIONS.map((c) => (
+                <option key={c} value={c}>{c}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-semibold mb-1 text-gray-700">Tags (comma-separated)</label>
+            <input value={tags} onChange={(e) => setTags(e.target.value)} className="w-full px-3 py-2 border rounded" placeholder="e.g. react,javascript,study" disabled={loading} />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-semibold mb-1 text-gray-700">Read Time</label>
+            <div className="px-3 py-2 border rounded bg-gray-50">{readTime} min read</div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-semibold mb-1 text-gray-700">Status</label>
+            <div className="flex items-center gap-3">
+              <button type="button" onClick={() => setStatus(false)} className={`px-3 py-1 rounded ${!status ? 'bg-[#7C3AED] text-white' : 'border'}`}>Draft</button>
+              <button type="button" onClick={() => setStatus(true)} className={`px-3 py-1 rounded ${status ? 'bg-[#7C3AED] text-white' : 'border'}`}>Published</button>
+            </div>
+          </div>
+
+          {uploadProgress > 0 && uploadProgress < 100 && (
+            <div className="mb-3">
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-[#7C3AED] h-2 rounded-full transition-all" style={{ width: `${uploadProgress}%` }}></div>
+              </div>
+              <p className="text-xs text-gray-600 mt-1">{uploadProgress}% uploading...</p>
+            </div>
+          )}
+
+          <div className="flex gap-2 mt-4">
+            <button onClick={handleSave} disabled={loading} className="bg-[#7C3AED] hover:bg-[#6a28c8] text-white px-4 py-2 rounded disabled:opacity-50">{loading ? 'Saving...' : 'Save'}</button>
+            <button onClick={onCancel} disabled={loading} className="px-4 py-2 border rounded disabled:opacity-50">Cancel</button>
+          </div>
+        </div>
       </div>
     </div>
   )
