@@ -33,6 +33,14 @@ export default function BlogEditor({ post, onSaved, onCancel }) {
   const [uploadProgress, setUploadProgress] = useState(0)
   const [readTime, setReadTime] = useState(post?.read_time || 1)
 
+  const contentRef = React.useRef(null)
+
+  useEffect(() => {
+    if (contentRef.current && content) {
+      contentRef.current.innerHTML = content
+    }
+  }, [])
+
   const compressImage = async (file) => {
     return new Promise((resolve) => {
       const reader = new FileReader()
@@ -45,7 +53,6 @@ export default function BlogEditor({ post, onSaved, onCancel }) {
           let width = img.width
           let height = img.height
           
-          // Resize if too large
           if (width > 1200) {
             height = (height * 1200) / width
             width = 1200
@@ -58,7 +65,7 @@ export default function BlogEditor({ post, onSaved, onCancel }) {
           
           canvas.toBlob((blob) => {
             resolve(new File([blob], file.name, { type: 'image/jpeg' }))
-          }, 'image/jpeg', 0.8) // 80% quality
+          }, 'image/jpeg', 0.8)
         }
       }
     })
@@ -115,15 +122,17 @@ export default function BlogEditor({ post, onSaved, onCancel }) {
       }
 
       setUploadProgress(80)
-      // Prepare data
-      const read_time_calc = Math.max(1, Math.ceil((content || '').split(/\s+/).filter(Boolean).length / 200))
+      // Get HTML content from contentEditable div
+      const htmlContent = contentRef.current?.innerHTML || content
+      const plainText = htmlContent.replace(/<[^>]*>/g, '')
+      const read_time_calc = Math.max(1, Math.ceil((plainText || '').split(/\s+/).filter(Boolean).length / 200))
       setReadTime(read_time_calc)
 
       let dataToSave = {
         title,
         slug: slug || slugify(title),
         excerpt,
-        content,
+        content: htmlContent,
         category,
         tags: tags.split(',').map((t) => t.trim()).filter(Boolean),
         read_time: read_time_calc,
@@ -180,8 +189,20 @@ export default function BlogEditor({ post, onSaved, onCancel }) {
           <textarea value={excerpt} onChange={(e) => setExcerpt(e.target.value.slice(0,150))} rows={3} className="w-full px-3 py-2 border rounded mb-1" placeholder="Short description (max 150 chars)" disabled={loading} />
           <div className="text-xs text-gray-500 mb-3">{excerpt.length}/150</div>
 
-          <label className="block text-sm font-semibold mb-1 text-gray-700">Content</label>
-          <textarea value={content} onChange={(e) => setContent(e.target.value)} rows={12} className="w-full px-3 py-3 border rounded mb-3 focus:outline-none focus:ring-2 focus:ring-[#7C3AED]" placeholder="Post content (supports basic formatting)" disabled={loading} />
+          <label className="block text-sm font-semibold mb-1 text-gray-700">Content (Rich Text - paste formatted content here)</label>
+          <div 
+            ref={contentRef}
+            contentEditable={!loading}
+            suppressContentEditableWarning
+            className="w-full px-3 py-3 border rounded mb-3 focus:outline-none focus:ring-2 focus:ring-[#7C3AED] min-h-96 bg-white overflow-y-auto"
+            style={{
+              outline: 'none',
+              whiteSpace: 'pre-wrap',
+              wordWrap: 'break-word'
+            }}
+            onInput={(e) => setContent(e.currentTarget.innerHTML)}
+          />
+          <p className="text-xs text-gray-500">Paste formatted content here - bold, tables, lists, images will be preserved</p>
         </div>
 
         <div className="md:col-span-1">
