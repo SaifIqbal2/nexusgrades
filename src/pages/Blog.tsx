@@ -19,7 +19,7 @@ export default function Blog() {
   const [editing, setEditing] = useState(null)
   const [user, setUser] = useState(null)
   const [filter, setFilter] = useState('All')
-  const [authors, setAuthors] = useState({})
+  
   const [containerWidth, setContainerWidth] = useState(0)
   const [viewportHeight, setViewportHeight] = useState(800)
   const containerRef = useRef(null)
@@ -76,19 +76,9 @@ export default function Blog() {
     const fetchedPosts = data || []
     setPosts(fetchedPosts)
 
-    const userIds = Array.from(new Set(fetchedPosts.map((p) => p.user_id).filter(Boolean)))
-    if (userIds.length > 0) {
-      try {
-        const { data: profs } = await supabase.from('profiles').select('id, full_name, username').in('id', userIds)
-        const map = {}
-        ;(profs || []).forEach((r) => {
-          map[r.id] = r
-        })
-        setAuthors(map)
-      } catch (e) {
-        setAuthors({})
-      }
-    }
+    // Do not attempt to fetch a separate `profiles` table — some installs
+    // may not have it and it causes 404s in the network console. Use
+    // fallback author info from the post payload instead.
 
     setLoading(false)
   }, [])
@@ -126,12 +116,7 @@ export default function Blog() {
       const excerpt = text.split('\n').join(' ').trim()
       const words = (stripHtml(post.content || '') || '').split(/\s+/).filter(Boolean).length
       const readTime = post.read_time || Math.max(1, Math.ceil(words / 200))
-      const authorData = authors[post.user_id]
-      const author = authorData
-        ? authorData.full_name || authorData.username
-        : post.user_id
-        ? post.user_id.slice(0, 8)
-        : 'Author'
+      const author = post.author_name || post.author || (post.user_id ? post.user_id.slice(0, 8) : 'Author')
 
       return (
         <BlogCard
@@ -146,7 +131,7 @@ export default function Blog() {
         />
       )
     },
-    [authors, handleDelete, user]
+    [handleDelete, user]
   )
 
   const Cell = ({ columnIndex, rowIndex, style }) => {
