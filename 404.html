@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Redirecting…</title>
+    <script>
+      // SPA fallback for static hosts (GitHub Pages, simple hosts without SPA rewrites).
+      // On 404, fetch the index.html and render it so client-side routing can handle the path.
+      (function () {
+        function loadIndex() {
+          fetch('/index.html')
+            .then(function (r) { return r.text(); })
+            .then(function (html) {
+              document.open();
+              document.write(html);
+              document.close();
+              // keep the original path in the address bar
+              history.replaceState(null, '', location.pathname + location.search + location.hash);
+            })
+            .catch(function (err) {
+              console.error('Fallback loading failed', err);
+              // fallback: go to root
+              location.replace('/');
+            });
+        }
+
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+          loadIndex();
+        } else {
+          window.addEventListener('DOMContentLoaded', loadIndex);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting…</p>
+  </body>
+</html>
