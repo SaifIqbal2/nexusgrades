@@ -1,16 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import type { UserConfig } from 'vite'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
-    // HMR configuration for correct port
     hmr: {
       host: 'localhost',
       port: 5174
     },
-    // Security & Performance headers for development
     middlewareMode: false,
     headers: {
       'X-Content-Type-Options': 'nosniff',
@@ -26,7 +24,6 @@ export default defineConfig({
     }
   },
   build: {
-    // Performance optimization for production
     minify: 'terser',
     sourcemap: false,
     terserOptions: {
@@ -37,18 +34,23 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
+        manualChunks(id) {
           if (id.includes('node_modules/react')) {
-            return 'react-vendor';
+            return 'react-vendor'
           }
           if (id.includes('node_modules/react-router-dom')) {
-            return 'react-router';
+            return 'react-router'
+          }
+          if (id.includes('node_modules/lucide-react')) {
+            return 'lucide'
+          }
+          if (id.includes('node_modules/@supabase')) {
+            return 'supabase'
           }
         }
       }
     },
-    // Reduce CSS in JS for better performance
     cssCodeSplit: true,
     chunkSizeWarningLimit: 500
   }
-})
+} as UserConfig)

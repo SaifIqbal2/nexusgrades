@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabaseClient'
+import { getOptimizedImageUrl } from '../lib/getOptimizedImageUrl'
 
 export default function Post() {
   const { id } = useParams()
@@ -34,7 +35,15 @@ export default function Post() {
       <button onClick={() => navigate(-1)} className="mb-4 text-sm text-[#7C3AED]">&larr; Back</button>
 
       {post.image_url && (
-        <img src={post.image_url} alt={post.title} className="w-full h-64 object-cover rounded mb-6" />
+        <img
+          src={getOptimizedImageUrl(post.image_url, 800)}
+          alt={post.title}
+          className="w-full h-64 object-cover rounded mb-6"
+          width={800}
+          height={256}
+          loading="lazy"
+          decoding="async"
+        />
       )}
 
       <h1 className="text-3xl font-bold mb-2">{post.title}</h1>

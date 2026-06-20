@@ -1,46 +1,47 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import Services from './pages/Services';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Auth from './pages/Auth';
-import Blog from './pages/Blog';
-import Post from './pages/Post';
+
+const Home = React.lazy(() => import('./pages/Home'));
+const Services = React.lazy(() => import('./pages/Services'));
+const About = React.lazy(() => import('./pages/About'));
+const Contact = React.lazy(() => import('./pages/Contact'));
+const Auth = React.lazy(() => import('./pages/Auth'));
+const Blog = React.lazy(() => import('./pages/Blog'));
+const Post = React.lazy(() => import('./pages/Post'));
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen flex flex-col font-sans bg-slate-50 text-slate-900">
-        {/* Skip to Content Link - Keyboard Navigation */}
-        <a 
-          href="#main-content" 
+        <a
+          href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-violet-600 text-white px-4 py-2 z-50"
         >
           Skip to main content
         </a>
-        
+
         <Navbar />
         <main className="flex-grow" id="main-content" role="main">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:id" element={<Post />} />
-          </Routes>
+          <Suspense fallback={<div className="min-h-[360px] flex items-center justify-center">Loading content…</div>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<Post />} />
+            </Routes>
+          </Suspense>
         </main>
-        
-        {/* Floating WhatsApp Button */}
+
         <a
           href="https://wa.me/923393301238"
           target="_blank"
           rel="noreferrer"
-          className="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:bg-[#20bd5a] hover:scale-110 transition-transform z-50 flex items-center justify-center animate-bounce shadow-green-400/50"
+          className="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:bg-[#20bd5a] hover:scale-110 transition-transform duration-100 z-50 flex items-center justify-center animate-bounce shadow-green-400/50"
           aria-label="Chat with us on WhatsApp"
         >
           <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
