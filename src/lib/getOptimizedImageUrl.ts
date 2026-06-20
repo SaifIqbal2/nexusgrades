@@ -1,9 +1,5 @@
 export const getOptimizedImageUrl = (supabaseUrl: string, width = 400): string => {
-  // Encode the remote URL so Cloudflare Image Resize accepts it reliably
-  try {
-    const encoded = encodeURIComponent(supabaseUrl)
-    return `https://nexusgrades.com/cdn-cgi/image/width=${width},quality=75,format=webp/${encoded}`
-  } catch (e) {
-    return `https://nexusgrades.com/cdn-cgi/image/width=${width},quality=75,format=webp/${supabaseUrl}`
-  }
+  // You mentioned you don't manage Cloudflare — return the direct Supabase
+  // URL so the browser loads the original image and avoids /cdn-cgi/ 404s.
+  return supabaseUrl
 }
