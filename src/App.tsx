@@ -1,15 +1,14 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-
-const Home = React.lazy(() => import('./pages/Home'));
-const Services = React.lazy(() => import('./pages/Services'));
-const About = React.lazy(() => import('./pages/About'));
-const Contact = React.lazy(() => import('./pages/Contact'));
-const Auth = React.lazy(() => import('./pages/Auth'));
-const Blog = React.lazy(() => import('./pages/Blog'));
-const Post = React.lazy(() => import('./pages/Post'));
+import Home from './pages/Home';
+import Services from './pages/Services';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Auth from './pages/Auth';
+import Blog from './pages/Blog';
+import Post from './pages/Post';
 
 function App() {
   return (
@@ -24,17 +23,15 @@ function App() {
 
         <Navbar />
         <main className="flex-grow" id="main-content" role="main">
-          <Suspense fallback={<div className="min-h-[360px] flex items-center justify-center">Loading content…</div>}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:id" element={<Post />} />
-            </Routes>
-          </Suspense>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<Post />} />
+          </Routes>
         </main>
 
         <a
