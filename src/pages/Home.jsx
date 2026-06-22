@@ -190,7 +190,6 @@ export default function Home() {
         </div>
       </section>
 
-<div id="container-f1bd6d29bbaabfc89aa7d8ecd6b1898c">
       {/* How it Works - Cards Layout */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -375,3 +374,4 @@ export default function Home() {
       </section>
     </div>
   );
+}
