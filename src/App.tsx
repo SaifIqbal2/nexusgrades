@@ -14,13 +14,12 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen flex flex-col font-sans bg-slate-50 text-slate-900">
-        <a
+        
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 bg-violet-600 text-white px-4 py-2 z-50"
         >
           Skip to main content
         </a>
-
         <Navbar />
         <main className="flex-grow" id="main-content" role="main">
           <Routes>
@@ -33,9 +32,8 @@ function App() {
             <Route path="/blog/:id" element={<Post />} />
           </Routes>
         </main>
-        </div>
 
-        <a
+        
           href="https://wa.me/923393301238"
           target="_blank"
           rel="noreferrer"
