@@ -33,7 +33,7 @@ function App() {
             <Route path="/blog/:id" element={<Post />} />
           </Routes>
         </main>
-</div>
+        </div>
 
         <a
           href="https://wa.me/923393301238"
