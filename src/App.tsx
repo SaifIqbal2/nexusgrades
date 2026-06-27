@@ -22,8 +22,7 @@ function App() {
         </a>
 
         <Navbar />
-        <script async="async" data-cfasync="false" src="https://windingfold.com/f1bd6d29bbaabfc89aa7d8ecd6b1898c/invoke.js"></script>
-<div id="container-f1bd6d29bbaabfc89aa7d8ecd6b1898c"></div>
+     
         <main className="flex-grow" id="main-content" role="main">
           <Routes>
             <Route path="/" element={<Home />} />
