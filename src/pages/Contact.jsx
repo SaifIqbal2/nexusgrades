@@ -26,8 +26,8 @@ export default function Contact() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold">WhatsApp (Fastest)</h3>
-                    <a href="https://wa.me/923393301238" target="_blank" rel="noreferrer" className="text-indigo-100 hover:text-white mt-1 block transition-colors" aria-label="Contact us on WhatsApp">
-                      +92 339 330 1238
+                    <a href="https://wa.me/923281710468" target="_blank" rel="noreferrer" className="text-indigo-100 hover:text-white mt-1 block transition-colors" aria-label="Contact us on WhatsApp">
+                      +92 328 1710468
                     </a>
                   </div>
                 </div>
