@@ -144,7 +144,7 @@ export default function Contact() {
                 <div className="mt-4 text-center">
                    <p className="text-slate-500 font-medium uppercase text-sm">OR</p>
                 </div>
-                <a href="https://wa.me/923393301238" target="_blank" rel="noreferrer" className="mt-4 w-full bg-[#25D366] text-white font-bold py-4 rounded-xl hover:bg-[#20bd5a] hover:-translate-y-1 transition-all duration-300 shadow-xl shadow-green-200 flex items-center justify-center gap-2">
+                <a href="https://wa.me/923281710468" target="_blank" rel="noreferrer" className="mt-4 w-full bg-[#25D366] text-white font-bold py-4 rounded-xl hover:bg-[#20bd5a] hover:-translate-y-1 transition-all duration-300 shadow-xl shadow-green-200 flex items-center justify-center gap-2">
                    Message us on WhatsApp 💬
                 </a>
               </div>
